@@ -1,39 +1,45 @@
 ﻿@model B2BUygulamasi.Models.Kullanici
-
 @{
-    ViewData["Title"] = "B2B Uygulaması Ana Sayfa";
+    ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h3>Hoş Geldiniz, @Model.Ad @Model.Soyad</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Kullanıcı Bilgileri</h5>
-                            <p><strong>Firma:</strong> @Model.FirmaAdi</p>
-                            <p><strong>E-posta:</strong> @Model.Email</p>
-                            <p><strong>Son Giriş:</strong> @Model.SonGirisTarihi?.ToString("dd.MM.yyyy HH:mm")</p>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>Roller</h5>
-                            <ul>
-                                @foreach (var rol in Model.KullaniciRolleri)
-                                {
-                                    <li>@rol.Rol.RolAdi</li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Çıkış Yap</a>
-                </div>
+@if (Model == null)
+{
+    <div class="alert alert-danger">
+        Kullanıcı bilgileri yüklenemedi. Lütfen tekrar giriş yapın.
+    </div>
+    <a asp-action="Login" asp-controller="Account" class="btn btn-primary">Giriş Yap</a>
+}
+else
+{
+    <div class="container">
+        <h2>Hoş Geldiniz, @Model.Ad @Model.Soyad</h2>
+
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4>Kullanıcı Bilgileri</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Firma Adı:</dt>
+                    <dd class="col-sm-9">@(Model.FirmaAdi ?? "Belirtilmemiş")</dd>
+
+                    <dt class="col-sm-3">E-posta:</dt>
+                    <dd class="col-sm-9">@Model.Email</dd>
+
+                    <dt class="col-sm-3">Roller:</dt>
+                    <dd class="col-sm-9">
+                        @if (Model.KullaniciRolleri?.Any() == true)
+                        {
+                            @string.Join(", ", Model.KullaniciRolleri.Select(x => x.Rol?.RolAdi))
+                        }
+                        else
+                        {
+                            <span>Rol atanmamış</span>
+                        }
+                    </dd>
+                </dl>
             </div>
         </div>
     </div>
-</div>
+}

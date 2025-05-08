@@ -33,6 +33,24 @@ namespace B2BUygulamasi.Controllers
 
             if (!ModelState.IsValid)
             {
+                var kullanici = await _dbContext.Kullanicilar
+            .FirstOrDefaultAsync(k => k.Email == model.Email);
+                
+                if (kullanici != null && PasswordHasher.VerifyPassword(model.Password, kullanici.Sifre))
+                {
+                    // Session kontrolü
+                    if (HttpContext.Session == null)
+                    {
+                        _logger.LogError("Session is not available");
+                        throw new InvalidOperationException("Session is not configured");
+                    }
+
+                    // Session'a yazma
+                    HttpContext.Session.SetString("KullaniciEmail", kullanici.Email);
+                    HttpContext.Session.SetInt32("KullaniciID", kullanici.KullaniciID);
+
+                    return RedirectToLocal(returnUrl);
+                }
                 return View(model);
             }
 
@@ -49,10 +67,12 @@ namespace B2BUygulamasi.Controllers
                     return View(model);
                 }
 
-                if (!PasswordHasher.VerifyPassword("AQAAAAEAACcQAAAAEPdk5Hh3R4TZ4TzJ2lD5JYJ7vR6XfV7Lm8Kz1oW3X1o=", model.Password))
+                if (!PasswordHasher.VerifyPassword(model.Password, kullanici.Sifre))
                 {
-                    _logger.LogWarning($"Hatalı şifre denemesi: {model.Email}");
-                    ModelState.AddModelError(string.Empty, "Geçersiz giriş denemesi şifre");
+                    var hashlenmisSifre = PasswordHasher.HashPassword(model.Password);
+                    Console.WriteLine($"Girilen şifrenin hash'i: {hashlenmisSifre}");
+                    Console.WriteLine($"DB'deki hash: {kullanici.Sifre}");
+                    ModelState.AddModelError(string.Empty, "Geçersiz şifre");
                     return View(model);
                 }
 
@@ -155,19 +175,18 @@ namespace B2BUygulamasi.Controllers
         {
             try
             {
-                var kullaniciId = HttpContext.Session.GetInt32("KullaniciID");
+                // Session'ı temizle
                 HttpContext.Session.Clear();
 
-                if (kullaniciId.HasValue)
-                {
-                    _logger.LogInformation($"Çıkış yapıldı: {kullaniciId}");
-                }
+                // Authentication cookie'yi temizle (eğer kullanıyorsanız)
+                Response.Cookies.Delete(".AspNetCore.Cookies");
 
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Çıkış işleminde hata oluştu");
+                // Hata durumunda loglama
+                _logger.LogError(ex, "Çıkış yapılırken hata oluştu");
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -180,5 +199,7 @@ namespace B2BUygulamasi.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }

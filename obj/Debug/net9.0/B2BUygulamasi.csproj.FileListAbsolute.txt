@@ -155,9 +155,7 @@ C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\bin\Debug\net9.0\runtime
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\scopedcss\bundle\B2BUygulamasi.styles.css
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\scopedcss\projectbundle\B2BUygulamasi.bundle.scp.css
-C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\tu1a37mx7v-b9sayid5wm.gz
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\ilx2fhknvf-61n19gt1b8.gz
-C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\iaj25a28gg-xtxxf3hu2r.gz
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\36au7ke15f-bqjiyaj88i.gz
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\44btuyhg2m-c2jlpeoesf.gz
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\q02ealmiwr-erw9l3u2r3.gz
@@ -235,3 +233,5 @@ C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\refint\
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\B2BUygulamasi.pdb
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\B2BUygulamasi.genruntimeconfig.cache
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\ref\B2BUygulamasi.dll
+C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\iaj25a28gg-acacb4o0uq.gz
+C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\tu1a37mx7v-1thaxjv6bt.gz

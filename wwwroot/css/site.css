@@ -29,3 +29,61 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+/* wwwroot/css/site.css */
+:root {
+    --primary-blue: #1a4b8c;
+    --secondary-blue: #2a6fbd;
+    --light-blue: #e6f0fa;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+/* Navbar Stilleri */
+.navbar {
+    background-color: var(--primary-blue) !important;
+    padding: 0.8rem 1rem;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.nav-link {
+    color: white !important;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .nav-link.active {
+        font-weight: 500;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+/* Login Sayfasý Özel */
+.login-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobil Uyum */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        margin-top: 1rem;
+    }
+
+    .login-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}
