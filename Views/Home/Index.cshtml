@@ -1,0 +1,39 @@
+﻿@model B2BUygulamasi.Models.Kullanici
+
+@{
+    ViewData["Title"] = "B2B Uygulaması Ana Sayfa";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3>Hoş Geldiniz, @Model.Ad @Model.Soyad</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Kullanıcı Bilgileri</h5>
+                            <p><strong>Firma:</strong> @Model.FirmaAdi</p>
+                            <p><strong>E-posta:</strong> @Model.Email</p>
+                            <p><strong>Son Giriş:</strong> @Model.SonGirisTarihi?.ToString("dd.MM.yyyy HH:mm")</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Roller</h5>
+                            <ul>
+                                @foreach (var rol in Model.KullaniciRolleri)
+                                {
+                                    <li>@rol.Rol.RolAdi</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Çıkış Yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
