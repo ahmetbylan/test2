@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - B2B Portalı</title>
 
-    <!-- CSS dosyalarına versiyon ekleyin -->
+    <!-- Favicon -->
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon" asp-append-version="true">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Preload önemli kaynaklar -->
-    <link rel="preload" href="~/css/site.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="~/css/site.css"></noscript>
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
@@ -25,48 +27,80 @@
     @if (isAuthenticated && !isLoginPage)
     {
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-                <div class="container">
-                    <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+                <div class="container-fluid">
+                    <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">
                         <i class="fas fa-building me-2"></i>B2B PORTAL
                     </a>
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
                     <div class="collapse navbar-collapse" id="mainNavbar">
                         <ul class="navbar-nav me-auto">
                             <li class="nav-item">
-                                <a class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")"
-                                   asp-controller="Home" asp-action="Index">
+                                <a class="nav-link"
+                                   asp-controller="Home"
+                                   asp-action="Index"
+                                   active-controller="Home"
+                                   active-action="Index">
                                     <i class="fas fa-home me-1"></i> Ana Sayfa
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Urun" asp-action="Index">
+                                <a class="nav-link"
+                                   asp-controller="Urun"
+                                   asp-action="Index"
+                                   active-controller="Urun"
+                                   active-action="Index">
                                     <i class="fas fa-boxes me-1"></i> Ürünler
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Orders" asp-action="Index">
+                                <a class="nav-link"
+                                   asp-controller="Siparis"
+                                   asp-action="Index"
+                                   active-controller="Siparis"
+                                   active-action="Index">
                                     <i class="fas fa-clipboard-list me-1"></i> Siparişlerim
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Finance" asp-action="AccountStatement">
-                                    <i class="fas fa-file-invoice-dollar me-1"></i> Cari Ekstre
+                        </ul>
+
+                        <!-- Sepet ve Kullanıcı Menüsü -->
+                        <ul class="navbar-nav">
+                            <!-- Sepet İkonu -->
+                            <li class="nav-item me-3">
+                                <a class="nav-link position-relative" asp-controller="Sepet" asp-action="Index">
+                                    <i class="fas fa-shopping-cart fa-lg"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        @await Component.InvokeAsync("SepetSummary")
+                                    </span>
                                 </a>
                             </li>
-                        </ul>
-                        <ul class="navbar-nav">
+
+                            <!-- Kullanıcı Menüsü -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                    <i class="fas fa-user-circle me-1"></i> Profilim
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                                   role="button" data-bs-toggle="dropdown">
+                                    <i class="fas fa-user-circle me-1"></i>
+                                    <span class="d-none d-lg-inline">@User.Identity?.Name</span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Ayarlar</a></li>
+                                <ul class="dropdown-menu dropdown-menu-end shadow">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Hesap" asp-action="Profil">
+                                            <i class="fas fa-user me-2"></i> Profilim
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Hesap" asp-action="Ayarlar">
+                                            <i class="fas fa-cog me-2"></i> Ayarlar
+                                        </a>
+                                    </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item" asp-controller="AccountController" asp-action="Logout">
+                                        <a class="dropdown-item text-danger" asp-controller="Hesap" asp-action="CikisYap">
                                             <i class="fas fa-sign-out-alt me-2"></i> Çıkış Yap
                                         </a>
                                     </li>
@@ -79,12 +113,74 @@
         </header>
     }
 
-    <main class="@(isAuthenticated ? "container mt-4" : "container-fluid")">
+    <main role="main" class="@(isAuthenticated ? "container mt-4 mb-5" : "container-fluid px-0")">
+        <!-- Toast Mesajları -->
+        @if (TempData["Basarili"] != null)
+        {
+            <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header bg-success text-white">
+                        <strong class="me-auto">Bilgi</strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        @TempData["Basarili"]
+                    </div>
+                </div>
+            </div>
+        }
+
         @RenderBody()
     </main>
 
+    @if (isAuthenticated && !isLoginPage)
+    {
+        <footer class="bg-dark text-white py-4 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>B2B Portalı</h5>
+                        <p class="text-muted">Profesyonel iş çözümleri</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Hızlı Linkler</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="text-decoration-none text-muted">Sık Sorulan Sorular</a></li>
+                            <li><a href="#" class="text-decoration-none text-muted">İletişim</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>İletişim</h5>
+                        <ul class="list-unstyled text-muted">
+                            <li><i class="fas fa-phone me-2"></i> 0850 123 45 67</li>
+                            <li><i class="fas fa-envelope me-2"></i> info@b2bportal.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    }
+
+    <!-- JavaScript -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- Sepet Dinamik Güncelleme -->
+    <script>
+        $(document).ready(function() {
+            // Sepet sayısını canlı güncelle
+            function updateCartCount() {
+                $.get('@Url.Action("GetSepetCount", "Sepet")', function(data) {
+                    $('.cart-count').text(data);
+                });
+            }
+
+            // 30 saniyede bir güncelle
+            setInterval(updateCartCount, 30000);
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

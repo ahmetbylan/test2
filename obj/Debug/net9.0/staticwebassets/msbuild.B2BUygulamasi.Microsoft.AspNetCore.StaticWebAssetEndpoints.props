@@ -4,13 +4,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\B2BUygulamasi.c8bwb6p1t3.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-3JOwbM2cjFR4DaTqjDWd4X\u002BNwKngO9uxF0TUPV8riR0="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1131"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00223JOwbM2cjFR4DaTqjDWd4X\u002BNwKngO9uxF0TUPV8riR0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 19:33:19 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1131"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00223JOwbM2cjFR4DaTqjDWd4X\u002BNwKngO9uxF0TUPV8riR0=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 22:25:58 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/B2BUygulamasi/B2BUygulamasi.c8bwb6p1t3.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\B2BUygulamasi.c8bwb6p1t3.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"c8bwb6p1t3"},{"Name":"integrity","Value":"sha256-3JOwbM2cjFR4DaTqjDWd4X\u002BNwKngO9uxF0TUPV8riR0="},{"Name":"label","Value":"_content/B2BUygulamasi/B2BUygulamasi.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1131"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00223JOwbM2cjFR4DaTqjDWd4X\u002BNwKngO9uxF0TUPV8riR0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 08 May 2025 19:33:19 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1131"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00223JOwbM2cjFR4DaTqjDWd4X\u002BNwKngO9uxF0TUPV8riR0=\u0022"},{"Name":"Last-Modified","Value":"Fri, 09 May 2025 22:25:58 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/B2BUygulamasi/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>

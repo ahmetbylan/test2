@@ -1,0 +1,67 @@
+﻿@model List<SepetViewModel>
+
+<div class="container mt-5">
+    <h2>Sepetiniz</h2>
+    @if (TempData["Hata"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Hata"]</div>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Fiyat</th>
+                <th>Adet</th>
+                <th>Toplam</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.ResimUrl" width="50" />
+                        @item.UrunAdi
+                    </td>
+                    <td>@item.BirimFiyat.ToString("C2")</td>
+                    <td>
+                        <input type="number" value="@item.Adet" min="1" class="form-control quantity" data-urund="@item.UrunId" style="width: 70px;" />
+                    </td>
+                    <td>@item.ToplamTutar.ToString("C2")</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm remove-item" data-urund="@item.UrunId">Sil</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-end">
+        <h4>Toplam: @Model.Sum(x => x.ToplamTutar).ToString("C2")</h4>
+        <form asp-action="SiparisiTamamla" method="post">
+            <button type="submit" class="btn btn-success">Siparişi Tamamla</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Sepette adet güncelleme
+        document.querySelectorAll('.quantity').forEach(input => {
+            input.addEventListener('change', function () {
+                const urunId = this.dataset.urund;
+                const adet = this.value;
+                // AJAX ile adet güncelleme yapılabilir (Opsiyonel)
+            });
+        });
+
+        // Ürün silme
+        document.querySelectorAll('.remove-item').forEach(button => {
+            button.addEventListener('click', function () {
+                const urunId = this.dataset.urund;
+                fetch(`/Sepet/Sil?urunId=${urunId}`, { method: 'POST' })
+                    .then(response => window.location.reload());
+            });
+        });
+    </script>
+}

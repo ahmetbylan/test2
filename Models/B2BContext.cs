@@ -12,9 +12,22 @@ namespace B2BUygulamasi.Data
         public virtual DbSet<KullaniciRol> KullaniciRolleri => Set<KullaniciRol>();
         // ÜRÜN LİSTELEME
         public virtual DbSet<Urun> Urunler => Set<Urun>();
-
+        // Yeni eklenen DbSet'ler
+        public DbSet<Siparis> Siparisler { get; set; }
+        public DbSet<SiparisDetay> SiparisDetaylar { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            // Siparis ilişkileri
+            modelBuilder.Entity<SiparisDetay>()
+                .HasOne(sd => sd.Siparis)
+                .WithMany(s => s.SiparisDetaylar)
+                .HasForeignKey(sd => sd.SiparisId);
+
+            modelBuilder.Entity<SiparisDetay>()
+                .HasOne(sd => sd.Urun)
+                .WithMany()
+                .HasForeignKey(sd => sd.UrunId);
             // KullaniciRol için composite primary key
             modelBuilder.Entity<KullaniciRol>()
                 .HasKey(kr => new { kr.KullaniciID, kr.RolID });

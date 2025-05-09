@@ -1,3 +1,10 @@
 ﻿@using B2BUygulamasi
 @using B2BUygulamasi.Models
+@using B2BUygulamasi.Extensions
+@using B2BUygulamasi.TagHelpers
+@using B2BUygulamasi.Components  <!-- ViewComponent'ler için eklendi -->
+
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper B2BUygulamasi.TagHelpers.*, B2BUygulamasi
+@addTagHelper B2BUygulamasi.Components.*, B2BUygulamasi  
+<!-- ViewComponent'ler için eklendi -->
