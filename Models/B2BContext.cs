@@ -10,6 +10,8 @@ namespace B2BUygulamasi.Data
         public virtual DbSet<Kullanici> Kullanicilar => Set<Kullanici>();
         public virtual DbSet<Rol> Roller => Set<Rol>();
         public virtual DbSet<KullaniciRol> KullaniciRolleri => Set<KullaniciRol>();
+        // ÜRÜN LİSTELEME
+        public virtual DbSet<Urun> Urunler => Set<Urun>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,6 +37,8 @@ namespace B2BUygulamasi.Data
                 new Rol { RolID = 2, RolAdi = "Standart" },
                 new Rol { RolID = 3, RolAdi = "FirmaAdmin" }
             );
+
+
         }
     }
 }

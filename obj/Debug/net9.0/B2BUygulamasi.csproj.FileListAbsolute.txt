@@ -233,5 +233,5 @@ C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\refint\
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\B2BUygulamasi.pdb
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\B2BUygulamasi.genruntimeconfig.cache
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\ref\B2BUygulamasi.dll
-C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\iaj25a28gg-acacb4o0uq.gz
-C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\tu1a37mx7v-1thaxjv6bt.gz
+C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\tu1a37mx7v-vjkheleo8m.gz
+C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\compressed\iaj25a28gg-efz3k448we.gz

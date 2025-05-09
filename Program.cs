@@ -23,14 +23,14 @@ var app = builder.Build();
 
 
 // Veritabanýný otomatik migrate et (development ortamýnda)
-//if (app.Environment.IsDevelopment())
-//{
-//    using (var scope = app.Services.CreateScope())
-//    {
-//        var dbContext = scope.ServiceProvider.GetRequiredService<B2BContext>();
-//        dbContext.Database.Migrate();
-//    }
-//}
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<B2BContext>();
+        dbContext.Database.Migrate();
+    }
+}
 
 // Diðer middleware'ler...
 app.UseHttpsRedirection();

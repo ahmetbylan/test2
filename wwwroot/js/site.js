@@ -1,27 +1,23 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-// Mobil menü toggle işlevi
-document.addEventListener('DOMContentLoaded', function () {
-    // Dropdown menüler için
-    var dropdowns = document.querySelectorAll('.dropdown-toggle');
-    dropdowns.forEach(function (dropdown) {
-        dropdown.addEventListener('click', function (e) {
-            if (window.innerWidth < 992) {
-                e.preventDefault();
-                var menu = this.nextElementSibling;
-                menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+﻿document.addEventListener('DOMContentLoaded', function () {
+    const productModal = document.getElementById('productModal');
+    if (productModal) {
+        productModal.addEventListener('show.bs.modal', function () {
+            const modalDialog = this.querySelector('.modal-dialog');
+            if (window.innerWidth < 768) {
+                modalDialog.classList.add('modal-fullscreen-sm-down');
+            } else {
+                modalDialog.classList.remove('modal-fullscreen-sm-down');
             }
         });
-    });
-
-    // Aktif menü öğesini vurgula
-    var currentPath = window.location.pathname;
-    document.querySelectorAll('.nav-link').forEach(function (link) {
-        if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
-            link.innerHTML = '<i class="fas fa-arrow-right me-2"></i>' + link.textContent;
-        }
-    });
+        window.addEventListener('resize', function () {
+            const modalDialog = productModal.querySelector('.modal-dialog');
+            if (productModal.classList.contains('show')) { // Modal açıksa kontrol et
+                if (window.innerWidth < 768) {
+                    modalDialog.classList.add('modal-fullscreen-sm-down');
+                } else {
+                    modalDialog.classList.remove('modal-fullscreen-sm-down');
+                }
+            }
+        });
+    }
 });

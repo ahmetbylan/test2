@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "KsYLk+8vbpl8VkL5D8AWONu8NWDCdWckCnyBXWMtuqY=",
+  "Hash": "x8MdHZXIdL8/lPLoIqaWSQ64gDIdvrMJ0EvxGQ/cofg=",
   "Source": "B2BUygulamasi",
   "BasePath": "_content/B2BUygulamasi",
   "Mode": "Default",
@@ -647,12 +647,12 @@
       "OriginalItemSpec": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-acacb4o0uq.gz",
+      "Identity": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-efz3k448we.gz",
       "SourceId": "B2BUygulamasi",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/B2BUygulamasi",
-      "RelativePath": "js/site#[.{fingerprint=acacb4o0uq}]?.js.gz",
+      "RelativePath": "js/site#[.{fingerprint=efz3k448we}]?.js.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -661,8 +661,8 @@
       "RelatedAsset": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\js\\site.js",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "hvqalzu3rw",
-      "Integrity": "cxjQF6BrMNSku25M5SY/k5zThBrxo3CSS63Fubb5ulA=",
+      "Fingerprint": "c95q8fy591",
+      "Integrity": "4F48G3NxngbOGifC9OPmclpIZ89stZ/EJCjBu/mwghU=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\js\\site.js"
@@ -1067,12 +1067,12 @@
       "OriginalItemSpec": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-1thaxjv6bt.gz",
+      "Identity": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-vjkheleo8m.gz",
       "SourceId": "B2BUygulamasi",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/B2BUygulamasi",
-      "RelativePath": "css/site#[.{fingerprint=1thaxjv6bt}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=vjkheleo8m}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -1081,8 +1081,8 @@
       "RelatedAsset": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "acflp3ivgl",
-      "Integrity": "6sUMEvkaXAUXlIxOsJuBqYQsucjdtylvzLDOTPBREno=",
+      "Fingerprint": "0mizzz8rs2",
+      "Integrity": "+PfLadS0HAMZ1EQzZfXgF9VRPAVuKu1b/EOe1cjqiKI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\css\\site.css"
@@ -1417,8 +1417,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "1thaxjv6bt",
-      "Integrity": "pdUWwQXy2k92ScddODCqXj00ohr9OBiX4WrIKJ/Q62I=",
+      "Fingerprint": "vjkheleo8m",
+      "Integrity": "S6R7mqQvEhUGFED2VnmLgNHLEDGkqcT7B8NJ0jTU3nA=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -1445,6 +1445,27 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\images\\storage.png",
+      "SourceId": "B2BUygulamasi",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\",
+      "BasePath": "_content/B2BUygulamasi",
+      "RelativePath": "images/storage#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5glriuhxpx",
+      "Integrity": "VX+DApNfxQNMZ8aq8u6sT8nPj1gB5PGYTdvceKsjhrk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\storage.png"
+    },
+    {
       "Identity": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\js\\site.js",
       "SourceId": "B2BUygulamasi",
       "SourceType": "Discovered",
@@ -1459,8 +1480,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "acacb4o0uq",
-      "Integrity": "Wrocot3ECeN5h5GVS/DXVMRCmWRnMheyMuPZXYui9rY=",
+      "Fingerprint": "efz3k448we",
+      "Integrity": "5sVL5W/1ldvmoUS5v+lAp6xFUSvx50ZRA6ObAMte/OY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
@@ -3324,13 +3345,13 @@
       ]
     },
     {
-      "Route": "css/site.1thaxjv6bt.css",
-      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-1thaxjv6bt.gz",
+      "Route": "css/site.css",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-vjkheleo8m.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001432664756"
+          "Quality": "0.000929368030"
         }
       ],
       "ResponseHeaders": [
@@ -3340,19 +3361,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "697"
+          "Value": "1075"
         },
         {
           "Name": "ETag",
-          "Value": "\"6sUMEvkaXAUXlIxOsJuBqYQsucjdtylvzLDOTPBREno=\""
+          "Value": "\"+PfLadS0HAMZ1EQzZfXgF9VRPAVuKu1b/EOe1cjqiKI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:52:21 GMT"
+          "Value": "Fri, 09 May 2025 08:38:58 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -3368,26 +3389,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"pdUWwQXy2k92ScddODCqXj00ohr9OBiX4WrIKJ/Q62I=\""
+          "Value": "W/\"S6R7mqQvEhUGFED2VnmLgNHLEDGkqcT7B8NJ0jTU3nA=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "1thaxjv6bt"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-pdUWwQXy2k92ScddODCqXj00ohr9OBiX4WrIKJ/Q62I="
+          "Value": "sha256-S6R7mqQvEhUGFED2VnmLgNHLEDGkqcT7B8NJ0jTU3nA="
         }
       ]
     },
     {
-      "Route": "css/site.1thaxjv6bt.css",
+      "Route": "css/site.css",
       "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3397,7 +3410,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1743"
+          "Value": "3243"
         },
         {
           "Name": "Content-Type",
@@ -3405,11 +3418,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"pdUWwQXy2k92ScddODCqXj00ohr9OBiX4WrIKJ/Q62I=\""
+          "Value": "\"S6R7mqQvEhUGFED2VnmLgNHLEDGkqcT7B8NJ0jTU3nA=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:52:21 GMT"
+          "Value": "Fri, 09 May 2025 08:38:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-S6R7mqQvEhUGFED2VnmLgNHLEDGkqcT7B8NJ0jTU3nA="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css.gz",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-vjkheleo8m.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1075"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+PfLadS0HAMZ1EQzZfXgF9VRPAVuKu1b/EOe1cjqiKI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:38:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-+PfLadS0HAMZ1EQzZfXgF9VRPAVuKu1b/EOe1cjqiKI="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.vjkheleo8m.css",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-vjkheleo8m.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000929368030"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1075"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"+PfLadS0HAMZ1EQzZfXgF9VRPAVuKu1b/EOe1cjqiKI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:38:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"S6R7mqQvEhUGFED2VnmLgNHLEDGkqcT7B8NJ0jTU3nA=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vjkheleo8m"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-S6R7mqQvEhUGFED2VnmLgNHLEDGkqcT7B8NJ0jTU3nA="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.vjkheleo8m.css",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3243"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"S6R7mqQvEhUGFED2VnmLgNHLEDGkqcT7B8NJ0jTU3nA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:38:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3419,7 +3577,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1thaxjv6bt"
+          "Value": "vjkheleo8m"
         },
         {
           "Name": "label",
@@ -3427,13 +3585,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-pdUWwQXy2k92ScddODCqXj00ohr9OBiX4WrIKJ/Q62I="
+          "Value": "sha256-S6R7mqQvEhUGFED2VnmLgNHLEDGkqcT7B8NJ0jTU3nA="
         }
       ]
     },
     {
-      "Route": "css/site.1thaxjv6bt.css.gz",
-      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-1thaxjv6bt.gz",
+      "Route": "css/site.vjkheleo8m.css.gz",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-vjkheleo8m.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3442,7 +3600,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "697"
+          "Value": "1075"
         },
         {
           "Name": "Content-Type",
@@ -3450,11 +3608,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"6sUMEvkaXAUXlIxOsJuBqYQsucjdtylvzLDOTPBREno=\""
+          "Value": "\"+PfLadS0HAMZ1EQzZfXgF9VRPAVuKu1b/EOe1cjqiKI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:52:21 GMT"
+          "Value": "Fri, 09 May 2025 08:38:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3472,7 +3630,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "1thaxjv6bt"
+          "Value": "vjkheleo8m"
         },
         {
           "Name": "label",
@@ -3480,144 +3638,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-6sUMEvkaXAUXlIxOsJuBqYQsucjdtylvzLDOTPBREno="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-1thaxjv6bt.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.001432664756"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "697"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"6sUMEvkaXAUXlIxOsJuBqYQsucjdtylvzLDOTPBREno=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:52:21 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"pdUWwQXy2k92ScddODCqXj00ohr9OBiX4WrIKJ/Q62I=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-pdUWwQXy2k92ScddODCqXj00ohr9OBiX4WrIKJ/Q62I="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1743"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"pdUWwQXy2k92ScddODCqXj00ohr9OBiX4WrIKJ/Q62I=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:52:21 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-pdUWwQXy2k92ScddODCqXj00ohr9OBiX4WrIKJ/Q62I="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css.gz",
-      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\tu1a37mx7v-1thaxjv6bt.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "697"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"6sUMEvkaXAUXlIxOsJuBqYQsucjdtylvzLDOTPBREno=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:52:21 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-6sUMEvkaXAUXlIxOsJuBqYQsucjdtylvzLDOTPBREno="
+          "Value": "sha256-+PfLadS0HAMZ1EQzZfXgF9VRPAVuKu1b/EOe1cjqiKI="
         }
       ]
     },
@@ -3920,13 +3941,95 @@
       ]
     },
     {
-      "Route": "js/site.acacb4o0uq.js",
-      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-acacb4o0uq.gz",
+      "Route": "images/storage.5glriuhxpx.png",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\images\\storage.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "28526"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VX+DApNfxQNMZ8aq8u6sT8nPj1gB5PGYTdvceKsjhrk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:02:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5glriuhxpx"
+        },
+        {
+          "Name": "label",
+          "Value": "images/storage.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-VX+DApNfxQNMZ8aq8u6sT8nPj1gB5PGYTdvceKsjhrk="
+        }
+      ]
+    },
+    {
+      "Route": "images/storage.png",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\images\\storage.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "28526"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"VX+DApNfxQNMZ8aq8u6sT8nPj1gB5PGYTdvceKsjhrk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 09 May 2025 08:02:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-VX+DApNfxQNMZ8aq8u6sT8nPj1gB5PGYTdvceKsjhrk="
+        }
+      ]
+    },
+    {
+      "Route": "js/site.efz3k448we.js",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-efz3k448we.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001610305958"
+          "Quality": "0.002906976744"
         }
       ],
       "ResponseHeaders": [
@@ -3936,15 +4039,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "620"
+          "Value": "343"
         },
         {
           "Name": "ETag",
-          "Value": "\"cxjQF6BrMNSku25M5SY/k5zThBrxo3CSS63Fubb5ulA=\""
+          "Value": "\"4F48G3NxngbOGifC9OPmclpIZ89stZ/EJCjBu/mwghU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:46:52 GMT"
+          "Value": "Fri, 09 May 2025 08:42:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3964,13 +4067,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"Wrocot3ECeN5h5GVS/DXVMRCmWRnMheyMuPZXYui9rY=\""
+          "Value": "W/\"5sVL5W/1ldvmoUS5v+lAp6xFUSvx50ZRA6ObAMte/OY=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "acacb4o0uq"
+          "Value": "efz3k448we"
         },
         {
           "Name": "label",
@@ -3978,12 +4081,12 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Wrocot3ECeN5h5GVS/DXVMRCmWRnMheyMuPZXYui9rY="
+          "Value": "sha256-5sVL5W/1ldvmoUS5v+lAp6xFUSvx50ZRA6ObAMte/OY="
         }
       ]
     },
     {
-      "Route": "js/site.acacb4o0uq.js",
+      "Route": "js/site.efz3k448we.js",
       "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\js\\site.js",
       "Selectors": [],
       "ResponseHeaders": [
@@ -3993,7 +4096,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1162"
+          "Value": "1047"
         },
         {
           "Name": "Content-Type",
@@ -4001,11 +4104,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Wrocot3ECeN5h5GVS/DXVMRCmWRnMheyMuPZXYui9rY=\""
+          "Value": "\"5sVL5W/1ldvmoUS5v+lAp6xFUSvx50ZRA6ObAMte/OY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:46:52 GMT"
+          "Value": "Fri, 09 May 2025 08:42:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4015,7 +4118,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "acacb4o0uq"
+          "Value": "efz3k448we"
         },
         {
           "Name": "label",
@@ -4023,13 +4126,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-Wrocot3ECeN5h5GVS/DXVMRCmWRnMheyMuPZXYui9rY="
+          "Value": "sha256-5sVL5W/1ldvmoUS5v+lAp6xFUSvx50ZRA6ObAMte/OY="
         }
       ]
     },
     {
-      "Route": "js/site.acacb4o0uq.js.gz",
-      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-acacb4o0uq.gz",
+      "Route": "js/site.efz3k448we.js.gz",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-efz3k448we.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4038,7 +4141,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "620"
+          "Value": "343"
         },
         {
           "Name": "Content-Type",
@@ -4046,11 +4149,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"cxjQF6BrMNSku25M5SY/k5zThBrxo3CSS63Fubb5ulA=\""
+          "Value": "\"4F48G3NxngbOGifC9OPmclpIZ89stZ/EJCjBu/mwghU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:46:52 GMT"
+          "Value": "Fri, 09 May 2025 08:42:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4068,7 +4171,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "acacb4o0uq"
+          "Value": "efz3k448we"
         },
         {
           "Name": "label",
@@ -4076,18 +4179,18 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-cxjQF6BrMNSku25M5SY/k5zThBrxo3CSS63Fubb5ulA="
+          "Value": "sha256-4F48G3NxngbOGifC9OPmclpIZ89stZ/EJCjBu/mwghU="
         }
       ]
     },
     {
       "Route": "js/site.js",
-      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-acacb4o0uq.gz",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-efz3k448we.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.001610305958"
+          "Quality": "0.002906976744"
         }
       ],
       "ResponseHeaders": [
@@ -4097,15 +4200,15 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "620"
+          "Value": "343"
         },
         {
           "Name": "ETag",
-          "Value": "\"cxjQF6BrMNSku25M5SY/k5zThBrxo3CSS63Fubb5ulA=\""
+          "Value": "\"4F48G3NxngbOGifC9OPmclpIZ89stZ/EJCjBu/mwghU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:46:52 GMT"
+          "Value": "Fri, 09 May 2025 08:42:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4125,13 +4228,13 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"Wrocot3ECeN5h5GVS/DXVMRCmWRnMheyMuPZXYui9rY=\""
+          "Value": "W/\"5sVL5W/1ldvmoUS5v+lAp6xFUSvx50ZRA6ObAMte/OY=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Wrocot3ECeN5h5GVS/DXVMRCmWRnMheyMuPZXYui9rY="
+          "Value": "sha256-5sVL5W/1ldvmoUS5v+lAp6xFUSvx50ZRA6ObAMte/OY="
         }
       ]
     },
@@ -4146,7 +4249,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1162"
+          "Value": "1047"
         },
         {
           "Name": "Content-Type",
@@ -4154,11 +4257,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"Wrocot3ECeN5h5GVS/DXVMRCmWRnMheyMuPZXYui9rY=\""
+          "Value": "\"5sVL5W/1ldvmoUS5v+lAp6xFUSvx50ZRA6ObAMte/OY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:46:52 GMT"
+          "Value": "Fri, 09 May 2025 08:42:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4168,13 +4271,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-Wrocot3ECeN5h5GVS/DXVMRCmWRnMheyMuPZXYui9rY="
+          "Value": "sha256-5sVL5W/1ldvmoUS5v+lAp6xFUSvx50ZRA6ObAMte/OY="
         }
       ]
     },
     {
       "Route": "js/site.js.gz",
-      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-acacb4o0uq.gz",
+      "AssetFile": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\obj\\Debug\\net9.0\\compressed\\iaj25a28gg-efz3k448we.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4183,7 +4286,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "620"
+          "Value": "343"
         },
         {
           "Name": "Content-Type",
@@ -4191,11 +4294,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"cxjQF6BrMNSku25M5SY/k5zThBrxo3CSS63Fubb5ulA=\""
+          "Value": "\"4F48G3NxngbOGifC9OPmclpIZ89stZ/EJCjBu/mwghU=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 08 May 2025 21:46:52 GMT"
+          "Value": "Fri, 09 May 2025 08:42:49 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4213,7 +4316,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-cxjQF6BrMNSku25M5SY/k5zThBrxo3CSS63Fubb5ulA="
+          "Value": "sha256-4F48G3NxngbOGifC9OPmclpIZ89stZ/EJCjBu/mwghU="
         }
       ]
     },

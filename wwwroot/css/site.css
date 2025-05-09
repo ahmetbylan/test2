@@ -1,43 +1,45 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
-/* wwwroot/css/site.css */
+/* Temel Stiller */
 :root {
     --primary-blue: #1a4b8c;
     --secondary-blue: #2a6fbd;
     --light-blue: #e6f0fa;
+    --bs-secondary-color: #6c757d;
+}
+
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
+    margin-bottom: 60px;
     background-color: #f8f9fa;
+}
+
+/* Form ve Buton Stilleri */
+.btn:focus, .btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
 }
 
 /* Navbar Stilleri */
@@ -66,7 +68,7 @@ body {
         background-color: rgba(255, 255, 255, 0.2);
     }
 
-/* Login Sayfasý Özel */
+/* Login Sayfasý */
 .login-container {
     max-width: 500px;
     margin: 2rem auto;
@@ -76,14 +78,104 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobil Uyum */
-@media (max-width: 768px) {
-    .navbar-collapse {
-        margin-top: 1rem;
+/* Ürün Kartlarý */
+.product-card {
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.product-image {
+    height: 200px;
+    padding: 15px;
+    object-fit: contain;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+.category-text {
+    font-size: 0.7rem;
+    color: var(--bs-secondary-color);
+}
+
+.description-text {
+    font-size: 0.75rem;
+    height: 36px;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+}
+
+.price-text {
+    font-size: 0.9rem;
+}
+
+.detail-btn {
+    min-width: 30px;
+    padding: 0.25rem 0.5rem;
+}
+
+.badge-overlay {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+    .badge-overlay .badge {
+        font-size: 0.6rem;
+        padding: 0.25em 0.4em;
     }
 
-    .login-container {
-        margin: 1rem;
-        padding: 1.5rem;
+/* Responsive Ayarlar */
+@media (min-width: 768px) {
+    .product-image {
+        height: 150px;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .description-text {
+        font-size: 0.85rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .product-image {
+        height: 200px;
+    }
+}
+
+/* Modal Ayarlarý */
+.modal-fullscreen-sm-down {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+}
+
+    .modal-fullscreen-sm-down .modal-content {
+        height: 100%;
+        border-radius: 0;
+    }
+
+    .modal-fullscreen-sm-down .modal-body {
+        overflow-y: auto;
+    }
+
+/* Dokunmatik Optimizasyon */
+.detail-btn, .product-card {
+    touch-action: manipulation;
+}
+
+@media (hover: none) {
+    .product-card {
+        transform: none !important;
     }
 }

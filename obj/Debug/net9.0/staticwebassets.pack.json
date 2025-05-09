@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\images\\storage.png",
+      "PackagePath": "staticwebassets\\images\\storage.png"
+    },
+    {
       "Id": "C:\\Users\\bylan\\source\\repos\\B2BUygulamasi\\B2BUygulamasi\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
