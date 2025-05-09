@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-6 text-right">
             <div class="dropdown">
-                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                     Kategoriler
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -49,26 +49,34 @@
                     <div class="badge-overlay">
                         @if (item.StokMiktari > 0)
                         {
-                            <span class="badge badge-success">Stokta</span>
+                            <span class="badge bg-success">Stokta</span>
                         }
                         else
                         {
-                            <span class="badge badge-danger">Tükendi</span>
+                            <span class="badge bg-danger">Tükendi</span>
                         }
                     </div>
                     <img src="@(string.IsNullOrEmpty(item.ResimYolu) ? "/images/default-product.png" : item.ResimYolu)"
                          class="card-img-top product-image"
                          alt="@item.UrunAdi"
-                         loading="lazy"> <!-- Resim lazy loading -->
+                         loading="lazy"
+                         width="250"
+                         height="200">
                     <div class="card-body p-2">
                         <h5 class="card-title mb-1">@item.UrunAdi</h5>
                         <p class="card-text text-muted category-text mb-1">@item.Kategori</p>
                         <div class="d-flex justify-content-between align-items-center mt-2">
                             <h5 class="text-primary mb-0 price-text">@item.Fiyat.ToString("C2")</h5>
                             <button class="btn btn-sm btn-outline-primary detail-btn"
-                                    data-toggle="modal"
-                                    data-target="#productModal"
-                                    data-id="@item.UrunID">
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#productModal"
+                                    data-id="@item.UrunID"
+                                    data-name="@item.UrunAdi"
+                                    data-category="@item.Kategori"
+                                    data-price="@item.Fiyat.ToString("C2")"
+                                    data-desc="@item.Aciklama"
+                                    data-stock="@item.StokMiktari"
+                                    data-image="@(string.IsNullOrEmpty(item.ResimYolu) ? "/images/default-product.png" : item.ResimYolu)">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -80,14 +88,12 @@
 </div>
 
 <!-- Ürün Detay Modal -->
-<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="productModalLabel">Ürün Detayları</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -101,22 +107,42 @@
                         <h4 id="modalProductPrice" class="mb-4"></h4>
                         <p id="modalProductDesc"></p>
                         <div class="d-flex align-items-center mb-3">
-                            <span class="font-weight-bold mr-2">Stok Durumu:</span>
+                            <span class="font-weight-bold me-2">Stok Durumu:</span>
                             <span id="modalProductStock" class="badge"></span>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <span class="font-weight-bold mr-2">Ürün Kodu:</span>
+                        <div class="d-flex align-items-center mb-4">
+                            <span class="font-weight-bold me-2">Ürün Kodu:</span>
                             <span id="modalProductId"></span>
+                        </div>
+
+                        <!-- Miktar Seçimi -->
+                        <div class="input-group mb-3" style="max-width: 200px;">
+                            <button class="btn btn-outline-secondary" type="button" id="decrementQuantity">-</button>
+                            <input type="number" class="form-control text-center" id="productQuantity" value="1" min="1">
+                            <button class="btn btn-outline-secondary" type="button" id="incrementQuantity">+</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn btn-primary">
-                    <i class="fas fa-shopping-cart mr-2"></i>Teklif İste
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" id="addToCartBtn">
+                    <i class="fas fa-cart-plus me-2"></i>Sepete Ekle
                 </button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sepet Bildirim Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="cartToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-primary text-white">
+            <strong class="me-auto">Sepet Bilgisi</strong>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="toastMessage">
+            Ürün sepete eklendi!
         </div>
     </div>
 </div>
@@ -131,10 +157,10 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            }
 
         .product-image {
             height: 200px;
@@ -155,14 +181,6 @@
             color: #6c757d !important;
         }
 
-        .description-text {
-            font-size: 0.9rem;
-            color: #495057;
-            margin-bottom: 1rem;
-            height: 40px;
-            overflow: hidden;
-        }
-
         #searchInput {
             border-radius: 20px;
             padding: 10px 20px;
@@ -171,13 +189,38 @@
 
         .dropdown-item.active {
             background-color: #1a73e8;
+            color: white;
         }
+
+        /* Modal animasyonu */
+        .modal.fade .modal-dialog {
+            transition: transform 0.3s ease-out;
+            transform: translate(0, -50px);
+        }
+
+        /* Miktar input düzenleme */
+        #productQuantity {
+            -moz-appearance: textfield;
+        }
+
+            #productQuantity::-webkit-outer-spin-button,
+            #productQuantity::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
     </style>
 }
 
 @section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
     <script>
         $(document).ready(function() {
+            // Toast bildirimi başlatma
+            const cartToast = new bootstrap.Toast(document.getElementById('cartToast'));
+
             // Arama fonksiyonu
             $("#searchInput").on("keyup", function() {
                 var value = $(this).val().toLowerCase();
@@ -198,11 +241,13 @@
                 $(this).addClass("active").siblings().removeClass("active");
             });
 
-            // Modal veri yükleme
+            // Modal açıldığında
             $('#productModal').on('show.bs.modal', function(event) {
                 var button = $(event.relatedTarget);
                 var modal = $(this);
+                var stock = parseInt(button.data('stock'));
 
+                // Ürün bilgilerini doldur
                 modal.find('#modalProductName').text(button.data('name'));
                 modal.find('#modalProductCategory').text(button.data('category'));
                 modal.find('#modalProductPrice').text(button.data('price'));
@@ -210,10 +255,64 @@
                 modal.find('#modalProductId').text("PRD-" + button.data('id'));
                 modal.find('#modalProductImage').attr('src', button.data('image'));
 
-                var stock = button.data('stock');
+                // Stok bilgisi
                 var stockBadge = modal.find('#modalProductStock');
                 stockBadge.text(stock > 0 ? stock + " Adet Stokta" : "Tükendi");
-                stockBadge.removeClass().addClass('badge ' + (stock > 0 ? 'badge-success' : 'badge-danger'));
+                stockBadge.removeClass().addClass('badge ' + (stock > 0 ? 'bg-success' : 'bg-danger'));
+
+                // Miktar input'unu ayarla
+                var quantityInput = modal.find('#productQuantity');
+                quantityInput.val(1); // Default değer
+                quantityInput.attr('max', stock > 0 ? stock : 1); // Maksimum stok adedi
+
+                // Stok yoksa butonu devre dışı bırak
+                modal.find('#addToCartBtn').prop('disabled', stock <= 0);
+            });
+
+            // Miktar artırma
+            $('#incrementQuantity').click(function() {
+                var input = $('#productQuantity');
+                var max = parseInt(input.attr('max'));
+                var value = parseInt(input.val());
+                if (value < max) input.val(value + 1);
+            });
+
+            // Miktar azaltma
+            $('#decrementQuantity').click(function() {
+                var input = $('#productQuantity');
+                var value = parseInt(input.val());
+                if (value > 1) input.val(value - 1);
+            });
+
+            // Sepete ekle butonu
+            $('#addToCartBtn').click(function() {
+                var productId = $('#modalProductId').text().replace('PRD-', '');
+                var quantity = $('#productQuantity').val();
+                var productName = $('#modalProductName').text();
+                var price = $('#modalProductPrice').text();
+
+                // Burada AJAX ile sepete ekleme yapabilirsiniz
+                // Örnek:
+                /*
+                $.post('/Sepet/Ekle', {
+                    urunId: productId,
+                    miktar: quantity
+                }, function(response) {
+                    // Başarılı olduğunda
+                });
+                */
+
+                // Toast bildirimi göster
+                $('#toastMessage').html(`
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>${quantity} adet <strong>${productName}</strong> sepete eklendi!</span>
+                        <span class="badge bg-primary rounded-pill">${price}</span>
+                    </div>
+                `);
+                cartToast.show();
+
+                // Modal'ı kapat
+                $('#productModal').modal('hide');
             });
         });
     </script>
