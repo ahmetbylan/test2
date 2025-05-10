@@ -119,6 +119,97 @@ namespace B2BUygulamasi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("B2BUygulamasi.Models.Siparis", b =>
+                {
+                    b.Property<int>("SiparisId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SiparisId"));
+
+                    b.Property<string>("Durum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KullaniciId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SiparisTarihi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ToplamTutar")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("SiparisId");
+
+                    b.ToTable("Siparisler");
+                });
+
+            modelBuilder.Entity("B2BUygulamasi.Models.SiparisDetay", b =>
+                {
+                    b.Property<int>("SiparisDetayId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SiparisDetayId"));
+
+                    b.Property<int>("Adet")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("BirimFiyat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SiparisId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UrunId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SiparisDetayId");
+
+                    b.HasIndex("SiparisId");
+
+                    b.HasIndex("UrunId");
+
+                    b.ToTable("SiparisDetaylar");
+                });
+
+            modelBuilder.Entity("B2BUygulamasi.Models.Urun", b =>
+                {
+                    b.Property<int>("UrunID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UrunID"));
+
+                    b.Property<string>("Aciklama")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Fiyat")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Kategori")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResimYolu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StokMiktari")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UrunAdi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UrunID");
+
+                    b.ToTable("Urunler");
+                });
+
             modelBuilder.Entity("B2BUygulamasi.Models.KullaniciRol", b =>
                 {
                     b.HasOne("B2BUygulamasi.Models.Kullanici", "Kullanici")
@@ -138,6 +229,25 @@ namespace B2BUygulamasi.Migrations
                     b.Navigation("Rol");
                 });
 
+            modelBuilder.Entity("B2BUygulamasi.Models.SiparisDetay", b =>
+                {
+                    b.HasOne("B2BUygulamasi.Models.Siparis", "Siparis")
+                        .WithMany("SiparisDetaylar")
+                        .HasForeignKey("SiparisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("B2BUygulamasi.Models.Urun", "Urun")
+                        .WithMany()
+                        .HasForeignKey("UrunId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Siparis");
+
+                    b.Navigation("Urun");
+                });
+
             modelBuilder.Entity("B2BUygulamasi.Models.Kullanici", b =>
                 {
                     b.Navigation("KullaniciRolleri");
@@ -146,6 +256,11 @@ namespace B2BUygulamasi.Migrations
             modelBuilder.Entity("B2BUygulamasi.Models.Rol", b =>
                 {
                     b.Navigation("KullaniciRolleri");
+                });
+
+            modelBuilder.Entity("B2BUygulamasi.Models.Siparis", b =>
+                {
+                    b.Navigation("SiparisDetaylar");
                 });
 #pragma warning restore 612, 618
         }

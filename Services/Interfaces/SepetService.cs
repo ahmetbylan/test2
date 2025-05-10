@@ -1,6 +1,9 @@
 ﻿using B2BUygulamasi.Models;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace B2BUygulamasi.Services
 {
@@ -13,6 +16,7 @@ namespace B2BUygulamasi.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
+        // Senkron metotlar
         public List<SepetItem> GetSepet()
         {
             var session = _httpContextAccessor.HttpContext.Session;
@@ -65,6 +69,35 @@ namespace B2BUygulamasi.Services
         {
             _httpContextAccessor.HttpContext.Session.SetString("Sepet",
                 JsonSerializer.Serialize(sepet));
+        }
+
+        // Asenkron metotlar (arayüz ile uyumlu hale getirildi)
+        public Task<List<SepetItem>> GetSepetAsync()
+        {
+            return Task.FromResult(GetSepet());
+        }
+
+        public Task AddToSepetAsync(int urunId, int adet = 1)
+        {
+            AddToSepet(urunId, adet);
+            return Task.CompletedTask;
+        }
+
+        public Task RemoveFromSepetAsync(int urunId)
+        {
+            RemoveFromSepet(urunId);
+            return Task.CompletedTask;
+        }
+
+        public Task ClearSepetAsync()
+        {
+            ClearSepet();
+            return Task.CompletedTask;
+        }
+
+        public Task<int> GetSepetItemCountAsync()
+        {
+            return Task.FromResult(GetSepetItemCount());
         }
     }
 }

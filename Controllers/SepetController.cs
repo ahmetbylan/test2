@@ -1,6 +1,5 @@
 ﻿using B2BUygulamasi.Data;
 using B2BUygulamasi.Models;
-using B2BUygulamasi.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +21,6 @@ namespace B2BUygulamasi.Controllers
             _sepetService = sepetService;
         }
 
-
         // Sepeti Görüntüle
         public IActionResult Index()
         {
@@ -30,16 +28,58 @@ namespace B2BUygulamasi.Controllers
             return View(sepet);
         }
 
-        // Sepete Ekle
-        [HttpPost]
+        // Sepete Ekle (AJAX uyumlu)
         [HttpPost]
         public IActionResult Ekle(int urunId, int adet = 1)
         {
-            _sepetService.AddToSepet(urunId, adet);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                // Ürün bilgilerini veritabanından al
+                var urun = _context.Urunler
+                    .Where(u => u.UrunID == urunId)
+                    .Select(u => new { u.UrunAdi, u.Fiyat, u.StokMiktari })
+                    .FirstOrDefault();
+
+                if (urun == null)
+                    return Json(new { success = false, message = "Ürün bulunamadı!" });
+
+                if (urun.StokMiktari < adet)
+                    return Json(new { success = false, message = "Yeterli stok yok!" });
+
+                var sepet = GetSepetFromSession();
+                var existingItem = sepet.FirstOrDefault(s => s.UrunId == urunId);
+
+                if (existingItem != null)
+                {
+                    existingItem.Adet += adet;
+                }
+                else
+                {
+                    sepet.Add(new SepetItem
+                    {
+                        UrunId = urunId,
+                        UrunAdi = urun.UrunAdi,
+                        BirimFiyat = urun.Fiyat,
+                        Adet = adet
+                    });
+                }
+
+                SaveSepetToSession(sepet);
+
+                return Json(new
+                {
+                    success = true,
+                    sepetAdet = sepet.Sum(i => i.Adet),
+                    message = $"{urun.UrunAdi} sepete eklendi!"
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Hata oluştu: " + ex.Message });
+            }
         }
 
-        // Sepetten Sil
+        // Sepetten Sil (AJAX uyumlu)
         [HttpPost]
         public IActionResult Sil(int urunId)
         {
@@ -50,9 +90,22 @@ namespace B2BUygulamasi.Controllers
             {
                 sepet.Remove(item);
                 SaveSepetToSession(sepet);
+                return Json(new
+                {
+                    success = true,
+                    sepetAdet = sepet.Sum(i => i.Adet),
+                    message = "Ürün sepetten kaldırıldı"
+                });
             }
 
-            return RedirectToAction(nameof(Index));
+            return Json(new { success = false, message = "Ürün sepetinizde bulunamadı" });
+        }
+
+        // Sepet Özeti (Partial View için)
+        public IActionResult SepetOzeti()
+        {
+            var sepet = GetSepetFromSession();
+            return PartialView("_SepetOzeti", sepet);
         }
 
         // Siparişi Tamamla

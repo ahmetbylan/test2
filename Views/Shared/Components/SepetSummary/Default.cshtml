@@ -1,5 +1,19 @@
 ﻿@model int
-@if (Model > 0)
-{
+<span class="sepet-badge @(Model > 0 ? "badge bg-primary" : "d-none")">
     @Model
-}
+</span>
+
+<style>
+    .sepet-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        font-size: 0.7rem;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>

@@ -8,15 +8,26 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="9.0.4" />
+<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+  <PrivateAssets>all</PrivateAssets>
+  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+</PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
-
+<ItemGroup>
+  <Compile Remove="Migrations\**" />
+  <Content Remove="Migrations\**" />
+  <EmbeddedResource Remove="Migrations\**" />
+  <None Remove="Migrations\**" />
+</ItemGroup>
 </Project>
