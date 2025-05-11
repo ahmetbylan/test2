@@ -4,6 +4,9 @@ using B2BUygulamasi.Helpers;
 using System.Diagnostics;
 using B2BUygulamasi.Models;
 using B2BUygulamasi.Data;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace B2BUygulamasi.Controllers
 {
@@ -33,31 +36,12 @@ namespace B2BUygulamasi.Controllers
 
             if (!ModelState.IsValid)
             {
-                var kullanici = await _dbContext.Kullanicilar
-            .FirstOrDefaultAsync(k => k.Email == model.Email);
-                
-                if (kullanici != null && PasswordHasher.VerifyPassword(model.Password, kullanici.Sifre))
-                {
-                    // Session kontrolü
-                    if (HttpContext.Session == null)
-                    {
-                        _logger.LogError("Session is not available");
-                        throw new InvalidOperationException("Session is not configured");
-                    }
-
-                    // Session'a yazma
-                    HttpContext.Session.SetString("KullaniciEmail", kullanici.Email);
-                    HttpContext.Session.SetInt32("KullaniciID", kullanici.KullaniciID);
-
-                    return RedirectToLocal(returnUrl);
-                }
                 return View(model);
             }
 
             try
             {
                 var kullanici = await _dbContext.Kullanicilar
-                    .AsNoTracking()
                     .FirstOrDefaultAsync(k => k.Email == model.Email);
 
                 if (kullanici == null)
@@ -69,9 +53,7 @@ namespace B2BUygulamasi.Controllers
 
                 if (!PasswordHasher.VerifyPassword(model.Password, kullanici.Sifre))
                 {
-                    var hashlenmisSifre = PasswordHasher.HashPassword(model.Password);
-                    Console.WriteLine($"Girilen şifrenin hash'i: {hashlenmisSifre}");
-                    Console.WriteLine($"DB'deki hash: {kullanici.Sifre}");
+                    _logger.LogWarning("Şifre uyuşmuyor");
                     ModelState.AddModelError(string.Empty, "Geçersiz şifre");
                     return View(model);
                 }
@@ -83,13 +65,38 @@ namespace B2BUygulamasi.Controllers
                     return View(model);
                 }
 
-                // Giriş başarılı
+                // Giriş başarılı: Son giriş güncelleme
                 kullanici.SonGirisTarihi = DateTime.Now;
                 _dbContext.Update(kullanici);
                 await _dbContext.SaveChangesAsync();
 
+                // Session
                 HttpContext.Session.SetString("KullaniciEmail", kullanici.Email);
                 HttpContext.Session.SetInt32("KullaniciID", kullanici.KullaniciID);
+
+                // test çerez silincek 
+                // Session oku ve logla
+                var testEmail = HttpContext.Session.GetString("KullaniciEmail");
+                _logger.LogWarning($"Test: Session'dan okunan email: {testEmail}");
+
+                // Claims & Cookie Authentication
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, kullanici.KullaniciID.ToString()),
+                    new Claim(ClaimTypes.Name, kullanici.Email),
+                    new Claim(ClaimTypes.Email, kullanici.Email)
+                };
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = model.RememberMe,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(30)
+                };
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProperties);
 
                 _logger.LogInformation($"Başarılı giriş: {kullanici.KullaniciID}");
                 return RedirectToLocal(returnUrl);
@@ -171,21 +178,16 @@ namespace B2BUygulamasi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             try
             {
-                // Session'ı temizle
                 HttpContext.Session.Clear();
-
-                // Authentication cookie'yi temizle (eğer kullanıyorsanız)
-                Response.Cookies.Delete(".AspNetCore.Cookies");
-
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 return RedirectToAction("Login", "Account");
             }
             catch (Exception ex)
             {
-                // Hata durumunda loglama
                 _logger.LogError(ex, "Çıkış yapılırken hata oluştu");
                 return RedirectToAction("Index", "Home");
             }
@@ -199,7 +201,5 @@ namespace B2BUygulamasi.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
-
     }
 }

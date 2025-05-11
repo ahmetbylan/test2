@@ -30,7 +30,6 @@ namespace B2BUygulamasi.Controllers
 
         // Sepete Ekle (AJAX uyumlu)
         [HttpPost]
-        [HttpPost]
         [ValidateAntiForgeryToken] // CSRF koruması ekliyoruz
         public IActionResult Ekle(int urunId, int adet = 1)
         {

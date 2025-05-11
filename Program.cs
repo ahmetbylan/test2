@@ -13,21 +13,21 @@ using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Configuration
+// Configuration
 var configuration = builder.Configuration;
 
-// 2. Services Configuration
+// DbContext
 builder.Services.AddDbContext<B2BContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("B2BConnection"),
-    sqlOptions =>
-    {
-        sqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5,
-            maxRetryDelay: TimeSpan.FromSeconds(30),
-            errorNumbersToAdd: null);
-    }));
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null);
+        }));
 
-// Identity Configuration
+// Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -40,21 +40,19 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<B2BContext>()
 .AddDefaultTokenProviders();
 
-// Session Configuration
+// Session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromHours(2);
     options.Cookie.HttpOnly = true;
-    options.Cookie.SecurePolicy = builder.Environment.IsDevelopment()
-        ? CookieSecurePolicy.None
-        : CookieSecurePolicy.Always;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;  // Burada Always olacak
     options.Cookie.SameSite = SameSiteMode.Strict;
     options.Cookie.IsEssential = true;
     options.Cookie.Name = "B2B.Session";
 });
 
-// MVC Configuration
+// MVC & JSON
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>
     {
@@ -90,31 +88,29 @@ builder.Services.AddHealthChecks()
 
 var app = builder.Build();
 
-// 3. Middleware Pipeline
+// Middleware Pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 
-    // Database Migration
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<B2BContext>();
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    // Apply pending migrations automatically
+    using var scope = app.Services.CreateScope();
+    var dbContext = scope.ServiceProvider.GetRequiredService<B2BContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
-        try
+    try
+    {
+        if (dbContext.Database.GetPendingMigrations().Any())
         {
-            if (dbContext.Database.GetPendingMigrations().Any())
-            {
-                logger.LogInformation("Applying pending migrations...");
-                await dbContext.Database.MigrateAsync();
-                logger.LogInformation("Migrations applied successfully.");
-            }
+            logger.LogInformation("Applying pending migrations...");
+            await dbContext.Database.MigrateAsync();
+            logger.LogInformation("Migrations applied.");
         }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "An error occurred while migrating the database.");
-            throw;
-        }
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Database migration failed.");
+        throw;
     }
 }
 else
@@ -124,7 +120,7 @@ else
     app.UseHsts();
 }
 
-// Security Headers
+// Güvenlik baþlýklarý
 app.Use(async (context, next) =>
 {
     context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
@@ -145,20 +141,19 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseRouting();
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
+
 
 // Localization
 var supportedCultures = new[] { "tr-TR" };
-var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture(supportedCultures[0])
+app.UseRequestLocalization(new RequestLocalizationOptions()
+    .SetDefaultCulture("tr-TR")
     .AddSupportedCultures(supportedCultures)
-    .AddSupportedUICultures(supportedCultures);
+    .AddSupportedUICultures(supportedCultures));
 
-app.UseRequestLocalization(localizationOptions);
-
-// Health Check Endpoint
+// HealthCheck Endpoint
 app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = async (context, report) =>
@@ -179,7 +174,7 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     }
 });
 
-// Endpoints
+// Routes
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
@@ -190,7 +185,7 @@ app.MapControllerRoute(
 
 app.Run();
 
-// Custom SQL Connection Health Check
+// SQL Health Check
 public class SqlConnectionHealthCheck : IHealthCheck
 {
     private readonly IConfiguration _configuration;

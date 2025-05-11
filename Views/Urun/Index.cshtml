@@ -262,20 +262,19 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function() {
-            // Toast bildirimi başlatma
+        $(document).ready(function () {
             const cartToast = new bootstrap.Toast(document.getElementById('cartToast'));
 
-            // Arama fonksiyonu
-            $("#searchInput, #searchButton").on("keyup change click", function() {
+            // Arama
+            $("#searchInput, #searchButton").on("keyup change click", function () {
                 var value = $("#searchInput").val().toLowerCase();
-                $("#productContainer .col-lg-3").filter(function() {
+                $("#productContainer .col-lg-3").filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                 });
             });
 
             // Kategori filtreleme
-            $(".dropdown-item").click(function() {
+            $(".dropdown-item").click(function () {
                 var category = $(this).data("category");
                 if (category === "all") {
                     $("#productContainer .col-lg-3").show();
@@ -286,14 +285,13 @@
                 $(this).addClass("active").siblings().removeClass("active");
             });
 
-            // Modal açıldığında
-            $('#productModal').on('show.bs.modal', function(event) {
+            // Modal açıldığında ürün bilgilerini doldur
+            $('#productModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var modal = $(this);
                 var stock = parseInt(button.data('stock'));
                 var price = parseFloat(button.data('price'));
 
-                // Ürün bilgilerini doldur
                 modal.find('#modalProductName').text(button.data('name'));
                 modal.find('#modalProductCategory').text(button.data('category'));
                 modal.find('#modalProductPrice').text(formatPrice(price));
@@ -301,21 +299,18 @@
                 modal.find('#modalProductId').text("PRD-" + button.data('id'));
                 modal.find('#modalProductImage').attr('src', button.data('image'));
 
-                // Stok bilgisi
                 var stockBadge = modal.find('#modalProductStock');
                 stockBadge.text(stock > 0 ? stock + " Adet Stokta" : "Tükendi");
                 stockBadge.removeClass().addClass('badge ' + (stock > 0 ? 'bg-success' : 'bg-danger'));
 
-                // Miktar input'unu ayarla
                 var quantityInput = modal.find('#productQuantity');
-                quantityInput.val(1); // Default değer
-                quantityInput.attr('max', stock > 0 ? stock : 1); // Maksimum stok adedi
+                quantityInput.val(1);
+                quantityInput.attr('max', stock > 0 ? stock : 1);
 
-                // Stok yoksa butonu devre dışı bırak
                 modal.find('#addToCartBtn').prop('disabled', stock <= 0);
             });
 
-            // Fiyat formatlama fonksiyonu
+            // Fiyat formatlama
             function formatPrice(price) {
                 return new Intl.NumberFormat('tr-TR', {
                     style: 'currency',
@@ -324,28 +319,29 @@
                 }).format(price);
             }
 
-            // Miktar artırma
-            $('#incrementQuantity').click(function() {
+            // Miktar artır
+            $('#incrementQuantity').click(function () {
                 var input = $('#productQuantity');
                 var max = parseInt(input.attr('max'));
                 var value = parseInt(input.val());
                 if (value < max) input.val(value + 1);
             });
 
-            // Miktar azaltma
-            $('#decrementQuantity').click(function() {
+            // Miktar azalt
+            $('#decrementQuantity').click(function () {
                 var input = $('#productQuantity');
                 var value = parseInt(input.val());
                 if (value > 1) input.val(value - 1);
             });
 
-            // Sepete ekle butonu
-            $('#addToCartBtn').click(function() {
+            // Sepete ekle
+            $('#addToCartBtn').click(function () {
                 var productId = $('#modalProductId').text().replace('PRD-', '');
-                var quantity = $('#productQuantity').val();
+                var quantity = parseInt($('#productQuantity').val());
                 var productName = $('#modalProductName').text();
                 var price = $('#modalProductPrice').text();
-                var stock = parseInt($('#modalProductStock').text());
+                var stockText = $('#modalProductStock').text();
+                var stock = /\d+/.test(stockText) ? parseInt(stockText) : 0;
 
                 if (stock <= 0) {
                     $('#toastMessage').html(`
@@ -358,7 +354,6 @@
                     return;
                 }
 
-                // CSRF Token al
                 var token = $('input[name="__RequestVerificationToken"]').val();
 
                 $.ajax({
@@ -371,14 +366,12 @@
                         urunId: productId,
                         adet: quantity
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.success) {
-                            // Sepet özetini güncelle
-                            $.get('@Url.Action("SepetOzeti", "Sepet")', function(data) {
+                            $.get('@Url.Action("SepetOzeti", "Sepet")', function (data) {
                                 $('#sepetOzetiContainer').html(data);
                             });
 
-                            // Toast bildirimi göster
                             $('#toastMessage').html(`
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span>${quantity} adet <strong>${productName}</strong> sepete eklendi!</span>
@@ -388,7 +381,6 @@
                             cartToast.show();
                             $('#productModal').modal('hide');
                         } else {
-                            // Hata durumunda
                             $('#toastMessage').html(`
                                 <div class="text-danger">
                                     <i class="fas fa-exclamation-circle me-2"></i>
@@ -398,12 +390,12 @@
                             cartToast.show();
                         }
                     },
-                    error: function(xhr) {
+                    error: function (xhr) {
                         var errorMessage = 'Sepete ekleme başarısız: Sunucu hatası';
 
                         if (xhr.status === 401) {
                             errorMessage = 'Lütfen giriş yapınız!';
-                            window.location.href = '/Account/Login'; // Giriş sayfasına yönlendir
+                            window.location.href = '/Account/Login';
                         } else if (xhr.responseJSON && xhr.responseJSON.message) {
                             errorMessage = xhr.responseJSON.message;
                         } else if (xhr.responseText) {
