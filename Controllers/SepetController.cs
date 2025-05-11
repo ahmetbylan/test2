@@ -30,10 +30,18 @@ namespace B2BUygulamasi.Controllers
 
         // Sepete Ekle (AJAX uyumlu)
         [HttpPost]
+        [HttpPost]
+        [ValidateAntiForgeryToken] // CSRF koruması ekliyoruz
         public IActionResult Ekle(int urunId, int adet = 1)
         {
             try
             {
+                // Kullanıcı giriş kontrolü (Authorize attribute zaten bunu sağlıyor)
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return Json(new { success = false, message = "Lütfen giriş yapınız!" });
+                }
+
                 // Ürün bilgilerini veritabanından al
                 var urun = _context.Urunler
                     .Where(u => u.UrunID == urunId)

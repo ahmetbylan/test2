@@ -1,8 +1,13 @@
 ﻿@model IEnumerable<B2BUygulamasi.Models.Urun>
+@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery antiforgery
 
 @{
     ViewData["Title"] = "Ürün Kataloğu";
+    var token = antiforgery.GetAndStoreTokens(Context).RequestToken;
 }
+
+<input type="hidden" name="__RequestVerificationToken" value="@token" />
 
 <div class="container-fluid py-4">
     <div class="row mb-4">
@@ -353,70 +358,72 @@
                     return;
                 }
 
-                        $.ajax({
-            url: '/Sepet/Ekle',
-            type: 'POST',
-            data: {
-                urunId: productId,
-                adet: quantity
-            },
-            success: function(response) {
-                if (response.success) {
-                    // Sepet özetini güncelle
-                    $.get('/Sepet/SepetOzeti', function(data) {
-                        $('#sepetOzetiContainer').html(data);
-                    });
+                // CSRF Token al
+                var token = $('input[name="__RequestVerificationToken"]').val();
 
-                    // Toast bildirimi göster
-                    $('#toastMessage').html(`
-                        <div class="d-flex justify-content-between align-items-center">
-                            <span>${quantity} adet <strong>${productName}</strong> sepete eklendi!</span>
-                            <span class="badge bg-primary rounded-pill">${price}</span>
-                        </div>
-                    `);
-                    cartToast.show();
-                    $('#productModal').modal('hide');
-                } else {
-                    // Hata durumunda
-                    $('#toastMessage').html(`
-                        <div class="text-danger">
-                            <i class="fas fa-exclamation-circle me-2"></i>
-                            ${response.message}
-                        </div>
-                    `);
-                    cartToast.show();
-                }
-            },
-                   error: function(xhr, status, error) {
-            // Eğer responseJSON yoksa, responseText üzerinden hata mesajını al
-            var errorMessage = 'Sepete ekleme başarısız: Sunucu hatası';
+                $.ajax({
+                    url: '@Url.Action("Ekle", "Sepet")',
+                    type: 'POST',
+                    headers: {
+                        'RequestVerificationToken': token
+                    },
+                    data: {
+                        urunId: productId,
+                        adet: quantity
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Sepet özetini güncelle
+                            $.get('@Url.Action("SepetOzeti", "Sepet")', function(data) {
+                                $('#sepetOzetiContainer').html(data);
+                            });
 
-            // responseJSON varsa, mesajı al
-            if (xhr.responseJSON && xhr.responseJSON.message) {
-                errorMessage = `Sepete ekleme başarısız: ${xhr.responseJSON.message}`;
-            } else if (xhr.responseText) {
-                // responseText varsa, onu kullan ve parse et
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                    // Eğer response'da message varsa kullan, yoksa genel hata mesajı göster
-                    errorMessage = `Sepete ekleme başarısız: ${response.message || 'Sunucu hatası'}`;
-                } catch (e) {
-                    errorMessage = 'Sepete ekleme başarısız: Hata oluştu';
-                }
-            }
+                            // Toast bildirimi göster
+                            $('#toastMessage').html(`
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span>${quantity} adet <strong>${productName}</strong> sepete eklendi!</span>
+                                    <span class="badge bg-primary rounded-pill">${price}</span>
+                                </div>
+                            `);
+                            cartToast.show();
+                            $('#productModal').modal('hide');
+                        } else {
+                            // Hata durumunda
+                            $('#toastMessage').html(`
+                                <div class="text-danger">
+                                    <i class="fas fa-exclamation-circle me-2"></i>
+                                    ${response.message}
+                                </div>
+                            `);
+                            cartToast.show();
+                        }
+                    },
+                    error: function(xhr) {
+                        var errorMessage = 'Sepete ekleme başarısız: Sunucu hatası';
 
-            // Hata mesajını göstermek için toast kullan
-            $('#toastMessage').html(`
-                <div class="text-danger">
-                    <i class="fas fa-exclamation-circle me-2"></i>
-                    ${errorMessage}
-                </div>
-            `);
-            cartToast.show();
-        }
+                        if (xhr.status === 401) {
+                            errorMessage = 'Lütfen giriş yapınız!';
+                            window.location.href = '/Account/Login'; // Giriş sayfasına yönlendir
+                        } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMessage = xhr.responseJSON.message;
+                        } else if (xhr.responseText) {
+                            try {
+                                var response = JSON.parse(xhr.responseText);
+                                errorMessage = response.message || 'Sunucu hatası';
+                            } catch (e) {
+                                errorMessage = 'Sepete ekleme başarısız: Hata oluştu';
+                            }
+                        }
 
-        });
-
+                        $('#toastMessage').html(`
+                            <div class="text-danger">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                ${errorMessage}
+                            </div>
+                        `);
+                        cartToast.show();
+                    }
+                });
             });
         });
     </script>
