@@ -353,50 +353,70 @@
                     return;
                 }
 
-                $.ajax({
-                    url: '/Sepet/Ekle',
-                    type: 'POST',
-                    data: {
-                        urunId: productId,
-                        adet: quantity
-                    },
-                    success: function(response) {
-                        if(response.success) {
-                            // Sepet özetini güncelle
-                            $.get('/Sepet/SepetOzeti', function(data) {
-                                $('#sepetOzetiContainer').html(data);
-                            });
+                        $.ajax({
+            url: '/Sepet/Ekle',
+            type: 'POST',
+            data: {
+                urunId: productId,
+                adet: quantity
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Sepet özetini güncelle
+                    $.get('/Sepet/SepetOzeti', function(data) {
+                        $('#sepetOzetiContainer').html(data);
+                    });
 
-                            // Toast bildirimi göster
-                            $('#toastMessage').html(`
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>${quantity} adet <strong>${productName}</strong> sepete eklendi!</span>
-                                    <span class="badge bg-primary rounded-pill">${price}</span>
-                                </div>
-                            `);
-                            cartToast.show();
-                            $('#productModal').modal('hide');
-                        } else {
-                            // Hata durumunda
-                            $('#toastMessage').html(`
-                                <div class="text-danger">
-                                    <i class="fas fa-exclamation-circle me-2"></i>
-                                    ${response.message}
-                                </div>
-                            `);
-                            cartToast.show();
-                        }
-                    },
-                    error: function(xhr) {
-                        $('#toastMessage').html(`
-                            <div class="text-danger">
-                                <i class="fas fa-exclamation-circle me-2"></i>
-                                Sepete ekleme başarısız: ${xhr.responseJSON?.message || 'Sunucu hatası'}
-                            </div>
-                        `);
-                        cartToast.show();
-                    }
-                });
+                    // Toast bildirimi göster
+                    $('#toastMessage').html(`
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span>${quantity} adet <strong>${productName}</strong> sepete eklendi!</span>
+                            <span class="badge bg-primary rounded-pill">${price}</span>
+                        </div>
+                    `);
+                    cartToast.show();
+                    $('#productModal').modal('hide');
+                } else {
+                    // Hata durumunda
+                    $('#toastMessage').html(`
+                        <div class="text-danger">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            ${response.message}
+                        </div>
+                    `);
+                    cartToast.show();
+                }
+            },
+                   error: function(xhr, status, error) {
+            // Eğer responseJSON yoksa, responseText üzerinden hata mesajını al
+            var errorMessage = 'Sepete ekleme başarısız: Sunucu hatası';
+
+            // responseJSON varsa, mesajı al
+            if (xhr.responseJSON && xhr.responseJSON.message) {
+                errorMessage = `Sepete ekleme başarısız: ${xhr.responseJSON.message}`;
+            } else if (xhr.responseText) {
+                // responseText varsa, onu kullan ve parse et
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    // Eğer response'da message varsa kullan, yoksa genel hata mesajı göster
+                    errorMessage = `Sepete ekleme başarısız: ${response.message || 'Sunucu hatası'}`;
+                } catch (e) {
+                    errorMessage = 'Sepete ekleme başarısız: Hata oluştu';
+                }
+            }
+
+            // Hata mesajını göstermek için toast kullan
+            $('#toastMessage').html(`
+                <div class="text-danger">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    ${errorMessage}
+                </div>
+            `);
+            cartToast.show();
+        }
+
+        });
+
             });
         });
     </script>
