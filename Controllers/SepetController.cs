@@ -21,13 +21,6 @@ namespace B2BUygulamasi.Controllers
             _sepetService = sepetService;
         }
 
-        // Sepeti Görüntüle
-        public IActionResult Index()
-        {
-            var sepet = GetSepetFromSession();
-            return View(sepet);
-        }
-
         // Sepete Ekle (AJAX uyumlu)
         [HttpPost]
         [ValidateAntiForgeryToken] // CSRF koruması ekliyoruz
@@ -127,15 +120,23 @@ namespace B2BUygulamasi.Controllers
             return Json(new { success = false, message = "Ürün sepetinizde bulunamadı" });
         }
 
-        // Sepet Özeti (Partial View için)
+        //Sepet Özeti(Partial View için)
+        // Sepeti Görüntüle
+        public IActionResult Index()
+        {
+            var sepet = GetSepetFromSession();
+            return View(sepet); // /Views/Sepet/Index.cshtml
+        }
         public IActionResult SepetOzeti()
         {
             var sepet = GetSepetFromSession();
-            return PartialView("~/Views/Shared/Components/SepetSummary/Default.cshtml", sepet);
+            int toplamAdet = sepet.Sum(item => item.Adet); // Toplam ürün adedini hesapla
+            return PartialView("~/Views/Shared/Components/SepetSummary/Default.cshtml", toplamAdet); // int gönder
         }
 
         // Siparişi Tamamla
         [HttpPost]
+        [ValidateAntiForgeryToken] // CSRF koruması için
         public async Task<IActionResult> SiparisiTamamla()
         {
             var sepet = GetSepetFromSession();
@@ -165,7 +166,7 @@ namespace B2BUygulamasi.Controllers
                 Durum = "Hazırlanıyor"
             };
 
-            _context.Siparisler.Add(siparis);
+            _context.Add(siparis);
             await _context.SaveChangesAsync();
 
             // Sipariş detaylarını ekle

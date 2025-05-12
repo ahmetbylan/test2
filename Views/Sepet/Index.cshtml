@@ -1,0 +1,127 @@
+﻿@model List<B2BUygulamasi.Models.SepetItem>
+
+<h2>Sepetim</h2>
+
+<div id="sepet-container">
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info">Sepetiniz boş</div>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ürün Adı</th>
+                    <th>Adet</th>
+                    <th>Birim Fiyat</th>
+                    <th>Toplam</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr data-urunid="@item.UrunId">
+                        <td>@item.UrunAdi</td>
+                        <td>@item.Adet</td>
+                        <td>@item.BirimFiyat.ToString("C")</td>
+                        <td class="urun-toplam">@((item.Adet * item.BirimFiyat).ToString("C"))</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm btn-sil" data-urunid="@item.UrunId">
+                                <i class="fas fa-trash-alt"></i> Sil
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="text-end">
+            <h4>Toplam: <span id="genel-toplam">@Model.Sum(item => item.Adet * item.BirimFiyat).ToString("C")</span></h4>
+            <form asp-action="SiparisiTamamla" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-success siparis-tamamlama">
+                    <i class="fas fa-check"></i> Siparişi Tamamla
+                </button>
+            </form>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function() {
+            // Silme işlemi
+            $(document).on('click', '.btn-sil', function() {
+                var urunId = $(this).data('urunid');
+                var $row = $(this).closest('tr');
+
+                Swal.fire({
+                    title: 'Emin misiniz?',
+                    text: "Bu ürün sepetten kaldırılacak!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Evet, sil!',
+                    cancelButtonText: 'Vazgeç'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/Sepet/Sil',
+                            type: 'POST',
+                            data: { urunId: urunId },
+                            success: function(response) {
+                                if (response.success) {
+                                    // Sepet sayacını güncelle
+                                    $('.sepet-badge').text(response.sepetAdet);
+
+                                    // Ürün satırını kaldır
+                                    $row.fadeOut(300, function() {
+                                        $(this).remove();
+                                        updateTotal();
+                                        checkEmptyCart();
+                                    });
+
+                                    Swal.fire(
+                                        'Silindi!',
+                                        response.message,
+                                        'success'
+                                    );
+                                } else {
+                                    Swal.fire(
+                                        'Hata!',
+                                        response.message,
+                                        'error'
+                                    );
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Toplamı güncelle
+            function updateTotal() {
+                var total = 0;
+                $('tbody tr').each(function() {
+                    var priceText = $(this).find('td:nth-child(3)').text();
+                    var price = parseFloat(priceText.replace(/[^\d.-]/g, ''));
+                    var qty = parseInt($(this).find('td:nth-child(2)').text());
+                    total += price * qty;
+                });
+                $('#genel-toplam').text('₺' + total.toFixed(2));
+            }
+
+            // Boş sepet kontrolü
+            function checkEmptyCart() {
+                if ($('tbody tr').length === 0) {
+                    $('#sepet-container').html('<div class="alert alert-info">Sepetiniz boş</div>');
+                    $('.siparis-tamamlama').hide();
+                }
+            }
+        });
+    </script>
+}
