@@ -85,6 +85,25 @@ namespace B2BUygulamasi.Controllers
                 return Json(new { success = false, message = "Hata oluştu: " + ex.Message });
             }
         }
+        // Sepet sayısını döndüren metod
+        [HttpGet]
+        public IActionResult GetSepetCount()
+        {
+            try
+            {
+                // Sepeti session'dan al
+                var sepet = GetSepetFromSession();
+
+                // Sepetteki toplam ürün adedini döndür
+                var sepetAdet = sepet.Sum(item => item.Adet);
+
+                return Json(new { success = true, sepetAdet });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Hata oluştu: " + ex.Message });
+            }
+        }
 
         // Sepetten Sil (AJAX uyumlu)
         [HttpPost]
@@ -112,7 +131,7 @@ namespace B2BUygulamasi.Controllers
         public IActionResult SepetOzeti()
         {
             var sepet = GetSepetFromSession();
-            return PartialView("_SepetOzeti", sepet);
+            return PartialView("~/Views/Shared/Components/SepetSummary/Default.cshtml", sepet);
         }
 
         // Siparişi Tamamla
