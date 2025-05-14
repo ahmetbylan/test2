@@ -190,6 +190,7 @@ namespace B2BUygulamasi.Controllers
 
             TempData["Basarili"] = "Siparişiniz başarıyla oluşturuldu!";
             return RedirectToAction("Detay", "Siparis", new { id = siparis.SiparisId });
+
         }
 
         #region Yardımcı Metotlar

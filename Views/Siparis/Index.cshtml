@@ -1,0 +1,89 @@
+﻿ @model IEnumerable<Siparis>
+@{
+    ViewData["Title"] = "Siparişlerim";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white border-bottom">
+                    <div class="d-flex justify-content-between align-items-center">
+                         <h4 class="mb-0">@ViewData["Title"]</h4>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="durumFiltre" data-bs-toggle="dropdown" aria-expanded="false">
+                                @ViewBag.SeciliDurum
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="durumFiltre">
+                                @foreach (var durum in ViewBag.DurumFiltre)
+                                {
+                                    <li>
+                                        <a class="dropdown-item @(ViewBag.SeciliDurum == durum ? "active" : "")"
+                                           asp-action="Index" asp-route-durum="@durum">@durum</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i> Henüz siparişiniz bulunmamaktadır.
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr class="table-light">
+                                        <th>Sipariş No</th>
+                                        <th>Tarih</th>
+                                        <th>Ürün Sayısı</th>
+                                        <th>Toplam Tutar</th>
+                                        <th>Durum</th>
+                                        <th>İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var siparis in Model)
+                                    {
+                                        <tr>
+                                            <td>#@siparis.SiparisId</td>
+                                            <td>@siparis.SiparisTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+                                            <td>@siparis.SiparisDetaylar.Sum(sd => sd.Adet)</td>
+                                            <td>@siparis.ToplamTutar.ToString("C2")</td>
+                                            <td>
+                                                @if (siparis.Durum == "Hazırlanıyor")
+                                                {
+                                                    <span class="badge bg-warning text-dark">@siparis.Durum</span>
+                                                }
+                                                else if (siparis.Durum == "Kargoda")
+                                                {
+                                                    <span class="badge bg-info">@siparis.Durum</span>
+                                                }
+                                                else if (siparis.Durum == "Tamamlandı")
+                                                {
+                                                    <span class="badge bg-success">@siparis.Durum</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a asp-action="Detay" asp-route-id="@siparis.SiparisId"
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye me-1"></i> Detay
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

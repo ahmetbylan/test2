@@ -240,10 +240,10 @@ C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\staticw
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.B2BUygulamasi.props
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.B2BUygulamasi.props
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\B2BUygul.8F5EECD2.Up2Date
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\B2BUygulamasi.dll
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\refint\B2BUygulamasi.dll
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\B2BUygulamasi.pdb
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\B2BUygulamasi.genruntimeconfig.cache
 C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\ref\B2BUygulamasi.dll
-C:\Users\bylan\source\repos\B2BUygulamasi\B2BUygulamasi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace B2BUygulamasi.Controllers
 {
-    [KullaniciGirisFilter]
+   // [KullaniciGirisFilter]
     public class HomeController : Controller
     {
         private readonly B2BContext _context;

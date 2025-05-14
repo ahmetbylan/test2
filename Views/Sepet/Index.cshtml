@@ -39,12 +39,95 @@
 
         <div class="text-end">
             <h4>Toplam: <span id="genel-toplam">@Model.Sum(item => item.Adet * item.BirimFiyat).ToString("C")</span></h4>
+
             <form asp-action="SiparisiTamamla" method="post" class="d-inline">
                 @Html.AntiForgeryToken()
                 <button type="submit" class="btn btn-success siparis-tamamlama">
                     <i class="fas fa-check"></i> Siparişi Tamamla
                 </button>
             </form>
+
+            <!-- WhatsApp ile Paylaş Butonu -->
+            @{
+                // 1. Mesaj başlığı (Türkçe karakter desteğiyle)
+                var mesaj = "🛒 *SEPETTE OLAN ÜRÜNLERİM* 🛒\n\n";
+
+                // 2. Ürün listesi (Her ürün alt alta)
+                mesaj += "*ÜRÜNLER:*\n";
+                foreach (var item in Model)
+                {
+                    mesaj += $"➤ *{item.UrunAdi}*\n";
+                    mesaj += $"   - Adet: {item.Adet}\n";
+                    mesaj += $"   - Fiyat: {item.BirimFiyat.ToString("C")}\n";
+                    mesaj += $"   → Ara Toplam: {(item.Adet * item.BirimFiyat).ToString("C")}\n\n";
+                }
+
+                // 3. Genel toplam (Türkçe formatlı)
+                mesaj += "────────────────\n";
+                mesaj += $"*GENEL TOPLAM: {Model.Sum(i => i.Adet * i.BirimFiyat).ToString("C")}*\n\n";
+
+                // 4. Sabit mesaj (Emoji kontrollü)
+                mesaj += "Teşekkür ederiz! ❤️";
+
+                // 5. WhatsApp URL Hazırlama (Tüm optimizasyonlar aktif)
+                var whatsappUrl = "https://wa.me/?text=" +
+                Uri.EscapeDataString(mesaj)
+                .Replace("\n", "%0A") // Yeni satır
+                .Replace("%C3%BC", "ü") // Türkçe karakter düzeltmeleri
+                .Replace("%C4%9F", "ğ")
+                .Replace("%C5%9F", "ş")
+                .Replace("%C4%B1", "ı");
+
+                // 6. Uzun mesaj kontrolü (WhatsApp 4096 karakter sınırı)
+                if (mesaj.Length > 3000)
+                {
+                    whatsappUrl = "https://wa.me/?text=" +
+                    Uri.EscapeDataString("⚠️ Çok fazla ürün var. Lütfen web sitemizden görüntüleyin.")
+                    .Replace("%C3%BC", "ü");
+                }
+            }
+
+            <!-- 7. Gelişmiş Buton Yapısı -->
+            <a href="@whatsappUrl" class="whatsapp-btn" target="_blank"
+               data-toggle="tooltip" title="Siparişi WhatsApp'ta paylaş">
+                <i class="fab fa-whatsapp"></i> PAYLAŞ
+            </a>
+
+            <style>
+                /* 8. Profesyonel Buton Stili */
+                .whatsapp-btn {
+                    background: linear-gradient(135deg, #25D366, #128C7E);
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    font-weight: bold;
+                    text-decoration: none;
+                    transition: all 0.3s;
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+                    border: none;
+                    font-size: 16px;
+                }
+
+                    .whatsapp-btn:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                        background: linear-gradient(135deg, #128C7E, #25D366);
+                    }
+
+                    .whatsapp-btn i {
+                        font-size: 20px;
+                    }
+            </style>
+
+            <!-- 9. Tooltip Aktif Etme -->
+            <script>
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip();
+                });
+            </script>
         </div>
     }
 </div>
@@ -53,7 +136,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
-            // Silme işlemi
             $(document).on('click', '.btn-sil', function() {
                 var urunId = $(this).data('urunid');
                 var $row = $(this).closest('tr');
@@ -75,27 +157,15 @@
                             data: { urunId: urunId },
                             success: function(response) {
                                 if (response.success) {
-                                    // Sepet sayacını güncelle
                                     $('.sepet-badge').text(response.sepetAdet);
-
-                                    // Ürün satırını kaldır
                                     $row.fadeOut(300, function() {
                                         $(this).remove();
                                         updateTotal();
                                         checkEmptyCart();
                                     });
-
-                                    Swal.fire(
-                                        'Silindi!',
-                                        response.message,
-                                        'success'
-                                    );
+                                    Swal.fire('Silindi!', response.message, 'success');
                                 } else {
-                                    Swal.fire(
-                                        'Hata!',
-                                        response.message,
-                                        'error'
-                                    );
+                                    Swal.fire('Hata!', response.message, 'error');
                                 }
                             }
                         });
@@ -103,7 +173,6 @@
                 });
             });
 
-            // Toplamı güncelle
             function updateTotal() {
                 var total = 0;
                 $('tbody tr').each(function() {
@@ -115,7 +184,6 @@
                 $('#genel-toplam').text('₺' + total.toFixed(2));
             }
 
-            // Boş sepet kontrolü
             function checkEmptyCart() {
                 if ($('tbody tr').length === 0) {
                     $('#sepet-container').html('<div class="alert alert-info">Sepetiniz boş</div>');

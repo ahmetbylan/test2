@@ -1,0 +1,96 @@
+﻿@model Siparis
+@{
+    ViewData["Title"] = $"Sipariş Detayı (#{Model.SiparisId})";
+}
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white border-bottom">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">@ViewData["Title"]</h4>
+                        <a asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-1"></i> Geri Dön
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title">Sipariş Bilgileri</h5>
+                                    <hr>
+                                    <p><strong>Sipariş No:</strong> #@Model.SiparisId</p>
+                                    <p><strong>Tarih:</strong> @Model.SiparisTarihi.ToString("dd.MM.yyyy HH:mm")</p>
+                                    <p>
+                                        <strong>Durum:</strong>
+                                        @if (Model.Durum == "Hazırlanıyor")
+                                        {
+                                            <span class="badge bg-warning text-dark">@Model.Durum</span>
+                                        }
+                                        else if (Model.Durum == "Kargoda")
+                                        {
+                                            <span class="badge bg-info">@Model.Durum</span>
+                                        }
+                                        else if (Model.Durum == "Tamamlandı")
+                                        {
+                                            <span class="badge bg-success">@Model.Durum</span>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title">Özet</h5>
+                                    <hr>
+                                    <p><strong>Toplam Ürün:</strong> @Model.SiparisDetaylar.Sum(sd => sd.Adet)</p>
+                                    <p><strong>Toplam Tutar:</strong> @Model.ToplamTutar.ToString("C2")</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Sipariş Kalemleri</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Ürün</th>
+                                            <th class="text-end">Birim Fiyat</th>
+                                            <th class="text-center">Adet</th>
+                                            <th class="text-end">Toplam</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var detay in Model.SiparisDetaylar)
+                                        {
+                                            <tr>
+                                                <td>@detay.Urun.UrunAdi</td>
+                                                <td class="text-end">@detay.BirimFiyat.ToString("C2")</td>
+                                                <td class="text-center">@detay.Adet</td>
+                                                <td class="text-end">@((detay.BirimFiyat * detay.Adet).ToString("C2"))</td>
+                                            </tr>
+                                        }
+                                        <tr class="table-light">
+                                            <td colspan="3" class="text-end fw-bold">Genel Toplam:</td>
+                                            <td class="text-end fw-bold">@Model.ToplamTutar.ToString("C2")</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

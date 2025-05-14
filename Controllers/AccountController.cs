@@ -183,8 +183,10 @@ namespace B2BUygulamasi.Controllers
             Response.Cookies.Delete(".AspNetCore.Cookies");
             Response.Cookies.Delete(".AspNetCore.Session");
 
+            TempData["CikisMesaji"] = "Başarıyla çıkış yaptınız.";
             _logger.LogInformation("Kullanıcı çıkış yaptı");
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
