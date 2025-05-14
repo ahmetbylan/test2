@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<B2BUygulamasi.Models.Urun>
 @using Microsoft.AspNetCore.Antiforgery
 @inject IAntiforgery antiforgery
+@inject B2BUygulamasi.Services.FiyatHesaplamaService _fiyatService
 
 @{
     ViewData["Title"] = "Ürün Kataloğu";
     var token = antiforgery.GetAndStoreTokens(Context).RequestToken;
+    var toplamIskonto = ViewBag.FirmaIskontoOrani ?? 0;
+    var firma = ViewBag.CurrentFirma as B2BUygulamasi.Models.Firma;
 }
 
 <input type="hidden" name="__RequestVerificationToken" value="@token" />
@@ -47,6 +50,8 @@
     <div class="row" id="productContainer">
         @foreach (var item in Model)
         {
+            var iskontoluFiyat = _fiyatService.IskontoluFiyatHesapla(item.Fiyat, firma);
+
             <div class="col-6 col-md-4 col-lg-3 mb-4" data-category="@item.Kategori">
                 <div class="card product-card h-100">
                     <div class="badge-overlay">
@@ -69,17 +74,25 @@
                         <h5 class="card-title mb-1">@item.UrunAdi</h5>
                         <p class="card-text text-muted category-text mb-1">@item.Kategori</p>
                         <div class="d-flex justify-content-between align-items-center mt-2">
-                            <h5 class="text-primary mb-0 price-text">@item.Fiyat.ToString("C2")</h5>
+                            <h5 class="text-primary mb-0 price-text">
+                                @iskontoluFiyat.ToString("C2")
+                                @if (toplamIskonto > 0)
+                                {
+                                    <small class="text-success">(%@toplamIskonto indirim)</small>
+                                }
+                            </h5>
                             <button class="btn btn-sm btn-outline-primary detail-btn"
                                     data-bs-toggle="modal"
                                     data-bs-target="#productModal"
                                     data-id="@item.UrunID"
                                     data-name="@item.UrunAdi"
                                     data-category="@item.Kategori"
-                                    data-price="@item.Fiyat"
+                                    data-price="@iskontoluFiyat"
+                                    data-originalprice="@item.Fiyat"
                                     data-desc="@item.Aciklama"
                                     data-stock="@item.StokMiktari"
-                                    data-image="@(string.IsNullOrEmpty(item.ResimYolu) ? "/images/default-product.png" : item.ResimYolu)">
+                                    data-image="@(string.IsNullOrEmpty(item.ResimYolu) ? "/images/default-product.png" : item.ResimYolu)"
+                                    data-discount="@toplamIskonto">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -107,7 +120,7 @@
                         <h3 id="modalProductName" class="text-primary"></h3>
                         <p class="text-muted" id="modalProductCategory"></p>
                         <hr>
-                        <h4 id="modalProductPrice" class="mb-4"></h4>
+                        <div id="modalProductPrice"></div>
                         <p id="modalProductDesc"></p>
                         <div class="d-flex align-items-center mb-3">
                             <span class="font-weight-bold me-2">Stok Durumu:</span>
@@ -118,7 +131,6 @@
                             <span id="modalProductId"></span>
                         </div>
 
-                        <!-- Miktar Seçimi -->
                         <div class="input-group mb-3" style="max-width: 200px;">
                             <button class="btn btn-outline-secondary" type="button" id="decrementQuantity">-</button>
                             <input type="number" class="form-control text-center" id="productQuantity" value="1" min="1">
@@ -204,7 +216,6 @@
             color: white;
         }
 
-        /* Sepet özeti butonu */
         .sepet-ozeti-btn {
             position: relative;
         }
@@ -216,7 +227,6 @@
             font-size: 0.7rem;
         }
 
-        /* Modal animasyonu */
         .modal.fade .modal-dialog {
             transition: transform 0.3s ease-out, opacity 0.3s ease;
             transform: translate(0, -50px);
@@ -228,7 +238,6 @@
             opacity: 1;
         }
 
-        /* Miktar input düzenleme */
         #productQuantity {
             -moz-appearance: textfield;
             text-align: center;
@@ -240,7 +249,6 @@
                 margin: 0;
             }
 
-        /* Responsive ayarlar */
         @@media (max-width: 767.98px) {
             .product-image {
                 height: 150px;
@@ -262,7 +270,7 @@
         $(document).ready(function () {
             const cartToast = new bootstrap.Toast(document.getElementById('cartToast'));
 
-            // Arama
+            // Arama fonksiyonu
             $("#searchInput, #searchButton").on("keyup change click", function () {
                 var value = $("#searchInput").val().toLowerCase();
                 $("#productContainer .col-lg-3").filter(function () {
@@ -282,16 +290,30 @@
                 $(this).addClass("active").siblings().removeClass("active");
             });
 
-            // Modal açıldığında ürün bilgilerini doldur
+            // Modal işlemleri
             $('#productModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var modal = $(this);
                 var stock = parseInt(button.data('stock'));
                 var price = parseFloat(button.data('price'));
+                var originalPrice = parseFloat(button.data('originalprice'));
+                var discount = parseFloat(button.data('discount'));
 
                 modal.find('#modalProductName').text(button.data('name'));
                 modal.find('#modalProductCategory').text(button.data('category'));
-                modal.find('#modalProductPrice').text(formatPrice(price));
+
+                if(discount > 0) {
+                    modal.find('#modalProductPrice').html(`
+                        <span class="text-decoration-line-through text-muted me-2">${formatPrice(originalPrice)}</span>
+                        <span class="text-primary fs-4">${formatPrice(price)}</span>
+                        <span class="badge bg-success ms-2">%${discount} indirim</span>
+                    `);
+                } else {
+                    modal.find('#modalProductPrice').html(`
+                        <span class="text-primary fs-4">${formatPrice(price)}</span>
+                    `);
+                }
+
                 modal.find('#modalProductDesc').text(button.data('desc'));
                 modal.find('#modalProductId').text("PRD-" + button.data('id'));
                 modal.find('#modalProductImage').attr('src', button.data('image'));
@@ -316,7 +338,7 @@
                 }).format(price);
             }
 
-            // Miktar artır
+            // Miktar artır/azalt
             $('#incrementQuantity').click(function () {
                 var input = $('#productQuantity');
                 var max = parseInt(input.attr('max'));
@@ -324,14 +346,13 @@
                 if (value < max) input.val(value + 1);
             });
 
-            // Miktar azalt
             $('#decrementQuantity').click(function () {
                 var input = $('#productQuantity');
                 var value = parseInt(input.val());
                 if (value > 1) input.val(value - 1);
             });
 
-            // Sepete ekle
+            // Sepete ekleme
             $('#addToCartBtn').click(function () {
                 var productId = $('#modalProductId').text().replace('PRD-', '');
                 var quantity = parseInt($('#productQuantity').val());
@@ -389,7 +410,6 @@
                     },
                     error: function (xhr) {
                         var errorMessage = 'Sepete ekleme başarısız: Sunucu hatası';
-
                         if (xhr.status === 401) {
                             errorMessage = 'Lütfen giriş yapınız!';
                             window.location.href = '/Account/Login';

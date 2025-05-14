@@ -69,7 +69,9 @@ builder.Services.AddSession(options =>
         ? CookieSecurePolicy.SameAsRequest
         : CookieSecurePolicy.Always;
 });
+//Ýskonto fiyat 
 
+builder.Services.AddScoped<FiyatHesaplamaService>();
 // 4. MVC ve API Konfigürasyonu
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options =>

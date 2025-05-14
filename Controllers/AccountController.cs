@@ -132,7 +132,7 @@ namespace B2BUygulamasi.Controllers
                     Soyad = model.Soyad!.Trim(),
                     Email = model.Email!.ToLower().Trim(),
                     Sifre = PasswordHasher.HashPassword(model.Sifre!),
-                    FirmaAdi = model.FirmaAdi?.Trim(),
+                    //FirmaAdi = model.FirmaAdi?.Trim(),
                     KayitTarihi = DateTime.UtcNow,
                     Aktif = true,
                     SonGirisTarihi = DateTime.UtcNow

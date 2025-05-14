@@ -14,6 +14,7 @@ namespace B2BUygulamasi.Data
         public virtual DbSet<Urun> Urunler => Set<Urun>();
         public virtual DbSet<Siparis> Siparisler => Set<Siparis>();
         public virtual DbSet<SiparisDetay> SiparisDetaylar => Set<SiparisDetay>();
+        public DbSet<Firma> Firmalar { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

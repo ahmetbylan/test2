@@ -4,16 +4,19 @@ using B2BUygulamasi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace B2BUygulamasi.Data.Migrations
+namespace B2BUygulamasi.Migrations
 {
     [DbContext(typeof(B2BContext))]
-    partial class B2BContextModelSnapshot : ModelSnapshot
+    [Migration("20250514201624_AddFirmaAndDiscounts")]
+    partial class AddFirmaAndDiscounts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace B2BUygulamasi.Data.Migrations
 
                     b.HasKey("FirmaID");
 
-                    b.ToTable("Firmalar");
+                    b.ToTable("Firma");
                 });
 
             modelBuilder.Entity("B2BUygulamasi.Models.Kullanici", b =>
